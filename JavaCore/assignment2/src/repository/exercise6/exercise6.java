@@ -1,5 +1,7 @@
 package repository.exercise6;
 
+import entity.Account;
+
 public class exercise6 {
     public void question1(){
         System.out.println("Số chẵn nguyên dương nhỏ hơn 10");
@@ -18,5 +20,10 @@ public class exercise6 {
         for(int i=1; i<10;i++){
             System.out.println(i);
         }
+    }
+
+    public static void main(String[] args) {
+        Account account = new Account(3, "tran@gmail.com", "tl03", "Trần Đức Lương");
+        System.out.println(account);
     }
 }
