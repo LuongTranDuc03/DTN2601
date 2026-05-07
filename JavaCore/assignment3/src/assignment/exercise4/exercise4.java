@@ -16,6 +16,7 @@ public class exercise4 {
             return;
         }
 
+        // Tách chuỗi bởi dấu cách (có tể có nhiều khoảng trắng)
         String[] words = s.trim().split("\\s+");
 
         System.out.println("Số lượng các từ trong câu là: " + words.length);
@@ -54,6 +55,31 @@ public class exercise4 {
 
         String result = String.join(" ", words1);
         System.out.println(result);
+    }
+
+    public void  question3_1() {
+        System.out.println("question3.1");
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhập vào tên người dùng: ");
+        String input = sc.nextLine();
+
+        if (input == null || input.trim().isEmpty()) {
+            System.out.println("Tên không hợp lệ!");
+            return;
+        }
+
+        String[] arrs = input.trim().split("\\s+");
+        StringBuffer sb = new StringBuffer();
+        for (String word : arrs) {
+            // Hàm kiểm tra xem kí tự đầu tiên của chữ có viết hoa hay không
+            if (Character.isUpperCase(word.charAt(0))) {
+                sb.append(Character.toUpperCase(word.charAt(0)) + word.substring(1).toLowerCase()).append(" ");
+            } else {
+                sb.append(word).append(" ");
+            }
+        }
+
+        System.out.println("Chuỗi sau khi chuyển đổi: " + sb.toString().trim());
     }
 
     public void question4() {

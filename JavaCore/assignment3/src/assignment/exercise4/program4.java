@@ -6,6 +6,7 @@ public class program4 {
 //        obj.question1();
 //        obj.question2();
 //        obj.question3();
+        obj.question3_1();
 //        obj.question4();
 //        obj.question5();
 //        obj.question6();
@@ -18,6 +19,6 @@ public class program4 {
 //        obj.question13();
 //        obj.question14();
 //        obj.question15();
-        obj.question16();
+//        obj.question16();
     }
 }

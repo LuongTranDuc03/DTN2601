@@ -31,7 +31,7 @@ public class exercise5 {
     public void question6() {
         String[] departments = {
                 "Sale",
-                "Marketing",
+                "marketing",
                 "Accounting",
                 "Waiting room",
                 "boss of director"

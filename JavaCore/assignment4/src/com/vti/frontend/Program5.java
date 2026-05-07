@@ -1,12 +1,12 @@
 package com.vti.frontend;
 
-import com.vti.backend.Exercise5;
+import com.vti.backend.Exercise4CircleAccountDate;
 
 public class Program5 {
     public static void main(String[] args) {
-        Exercise5 exercise5 = new Exercise5();
+        Exercise4CircleAccountDate exercise5 = new Exercise4CircleAccountDate();
         
-        System.out.println("========== EXERCISE 5: Circle, Account, Date ==========\n");
+        System.out.println("========== EXERCISE 4: Circle, Account, Date ==========\n");
         exercise5.question1();
         exercise5.question2();
         exercise5.question3();
