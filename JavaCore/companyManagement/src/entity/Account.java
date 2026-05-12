@@ -6,30 +6,30 @@ public class Account {
     private int accountId;
     private String email;
     private String fullName;
-    private int departmentId;
-    private int positionId;
+    private Department department;
+    private Position position;
     private LocalDate createDate;
 
     // Constructors
     public Account() {
     }
 
-    public Account(int accountId, String email, String fullName, int departmentId, 
-                   int positionId, LocalDate createDate) {
+    public Account(int accountId, String email, String fullName, Department department, 
+                   Position position, LocalDate createDate) {
         this.accountId = accountId;
         this.email = email;
         this.fullName = fullName;
-        this.departmentId = departmentId;
-        this.positionId = positionId;
+        this.department = department;
+        this.position = position;
         this.createDate = createDate;
     }
 
-    public Account(String email, String fullName, int departmentId, 
-                   int positionId, LocalDate createDate) {
+    public Account(String email, String fullName, Department department, 
+                   Position position, LocalDate createDate) {
         this.email = email;
         this.fullName = fullName;
-        this.departmentId = departmentId;
-        this.positionId = positionId;
+        this.department = department;
+        this.position = position;
         this.createDate = createDate;
     }
 
@@ -58,20 +58,20 @@ public class Account {
         this.fullName = fullName;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
-    public int getPositionId() {
-        return positionId;
+    public Position getPosition() {
+        return position;
     }
 
-    public void setPositionId(int positionId) {
-        this.positionId = positionId;
+    public void setPosition(Position position) {
+        this.position = position;
     }
 
     public LocalDate getCreateDate() {
@@ -88,8 +88,8 @@ public class Account {
                 "accountId=" + accountId +
                 ", email='" + email + '\'' +
                 ", fullName='" + fullName + '\'' +
-                ", departmentId=" + departmentId +
-                ", positionId=" + positionId +
+                ", department=" + department +
+                ", position=" + position +
                 ", createDate=" + createDate +
                 '}';
     }

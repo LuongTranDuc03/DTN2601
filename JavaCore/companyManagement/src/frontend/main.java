@@ -1,61 +1,37 @@
 package frontend;
 
-import backend.QLAccount;
-import backend.QLDepartment;
-import backend.QLPosition;
-
 import java.util.Scanner;
 
 public class main {
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        QLDepartment qlDepartment = new QLDepartment();
-        QLPosition qlPosition = new QLPosition();
-        QLAccount qlAccount = new QLAccount();
+        AccountFunction accountFunc = new AccountFunction();
+        DepartmentFunction deptFunc = new DepartmentFunction();
+        PositionFunction posFunc = new PositionFunction();
 
-        int choice;
-        boolean running = true;
-
-        while (running) {
-            System.out.println("\n╔════════════════════════════════════════╗");
-            System.out.println("║      QUẢN LÝ CÔNG TY - MENU CHÍNH      ║");
-            System.out.println("╠════════════════════════════════════════╣");
-            System.out.println("║  1. Xem danh sách Phòng Ban            ║");
-            System.out.println("║  2. Xem danh sách Chức Vụ              ║");
-            System.out.println("║  3. Xem danh sách Nhân Viên            ║");
-            System.out.println("║  0. Thoát chương trình                 ║");
-            System.out.println("╚════════════════════════════════════════╝");
-            System.out.print("Nhập lựa chọn: ");
+        while (true) {
+            System.out.println("\n********** HỆ THỐNG QUẢN LÝ CÔNG TY **********");
+            System.out.println("1. Quản lý Nhân Viên (Account)");
+            System.out.println("2. Quản lý Phòng Ban (Department)");
+            System.out.println("3. Quản lý Chức Vụ (Position)");
+            System.out.println("0. Thoát chương trình");
+            System.out.print("Chọn đối tượng quản lý: ");
 
             try {
-                choice = Integer.parseInt(scanner.nextLine());
-
+                int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
-                    case 1:
-                        qlDepartment.displayAllDepartments();
-                        break;
-                    case 2:
-                        qlPosition.displayAllPositions();
-                        break;
-                    case 3:
-                        qlAccount.displayAllAccounts();
-                        break;
+                    case 1: accountFunc.menu(); break;
+                    case 2: deptFunc.menu(); break;
+                    case 3: posFunc.menu(); break;
                     case 0:
-                        System.out.println("\nCảm ơn bạn đã sử dụng chương trình. Tạm biệt!");
-                        running = false;
-                        break;
+                        System.out.println("Đang thoát...");
+                        System.exit(0);
                     default:
-                        System.out.println("\n❌ Lựa chọn không hợp lệ! Vui lòng nhập lại.");
+                        System.out.println("Lựa chọn không hợp lệ!");
                 }
-            } catch (NumberFormatException e) {
-                System.out.println("\n❌ Vui lòng nhập một số nguyên!");
             } catch (Exception e) {
-                System.err.println("\n❌ Lỗi: " + e.getMessage());
-                e.printStackTrace();
+                System.out.println("Lỗi: Vui lòng nhập số nguyên!");
             }
         }
-
-        scanner.close();
     }
 }

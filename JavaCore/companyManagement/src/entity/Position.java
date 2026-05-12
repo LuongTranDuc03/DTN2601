@@ -2,18 +2,18 @@ package entity;
 
 public class Position {
     private int positionId;
-    private String positionName;
+    private PositionName positionName;
 
     // Constructors
     public Position() {
     }
 
-    public Position(int positionId, String positionName) {
+    public Position(int positionId, PositionName positionName) {
         this.positionId = positionId;
         this.positionName = positionName;
     }
 
-    public Position(String positionName) {
+    public Position(PositionName positionName) {
         this.positionName = positionName;
     }
 
@@ -26,11 +26,11 @@ public class Position {
         this.positionId = positionId;
     }
 
-    public String getPositionName() {
+    public PositionName getPositionName() {
         return positionName;
     }
 
-    public void setPositionName(String positionName) {
+    public void setPositionName(PositionName positionName) {
         this.positionName = positionName;
     }
 
@@ -38,7 +38,7 @@ public class Position {
     public String toString() {
         return "Position{" +
                 "positionId=" + positionId +
-                ", positionName='" + positionName + '\'' +
+                ", positionName=" + positionName +
                 '}';
     }
 }
