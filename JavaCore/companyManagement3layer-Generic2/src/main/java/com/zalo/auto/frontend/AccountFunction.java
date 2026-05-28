@@ -54,14 +54,13 @@ public class AccountFunction {
     private void displayAll() {
         List<Account> list = accountController.findAll();
         System.out.println("\n=============================================== DANH SÁCH NHÂN VIÊN ===============================================");
-        System.out.printf("%-5s %-20s %-25s %-20s %-15s %-15s %-12s\n", "ID", "Username", "Email", "Họ Tên", "Phòng Ban", "Chức Vụ", "Ngày Tạo");
+        System.out.printf("%-5s %-25s %-20s %-15s %-15s %-12s\n", "ID", "Email", "Họ Tên", "Phòng Ban", "Chức Vụ", "Ngày Tạo");
         if (list.isEmpty()) {
             System.out.println("                                     (Trống)                                     ");
         } else {
             for (Account a : list) {
-                System.out.printf("%-5d %-20s %-25s %-20s %-15s %-15s %-12s\n",
+                System.out.printf("%-5d %-25s %-20s %-15s %-15s %-12s\n",
                     a.getAccountId(), 
-                    a.getUsername() != null ? a.getUsername() : "N/A",
                     a.getEmail(), 
                     a.getFullName(),
                     a.getDepartment() != null ? a.getDepartment().getDepartmentName() : "N/A",

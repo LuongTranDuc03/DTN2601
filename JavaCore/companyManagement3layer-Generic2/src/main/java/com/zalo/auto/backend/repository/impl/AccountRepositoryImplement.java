@@ -124,17 +124,9 @@ public class AccountRepositoryImplement implements IAccountRepository {
         Department dept = new Department(rs.getInt("department_id"), rs.getString("department_name"));
         Position pos = new Position(rs.getInt("position_id"), PositionName.fromString(rs.getString("position_name")));
 
-        String username = null;
-        try {
-            username = rs.getString("username");
-        } catch (SQLException e) {
-            // In case the column doesn't exist in a test DB without username
-        }
-
         return new Account(
                 rs.getInt("account_id"),
                 rs.getString("email"),
-                username,
                 rs.getString("full_name"),
                 dept,
                 pos,

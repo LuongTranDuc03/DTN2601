@@ -34,16 +34,15 @@ public class AccountCsvImport implements IImportFile<AccountCsv, AccountContext,
 
             while (line != null) {
                 String[] split = line.split(",");
-                // Expecting at least 6 columns: email, username, password, fullName, departmentId, positionId
-                if (split.length >= 6) {
+                // Expecting at least 5 columns: email, password, fullName, departmentId, positionId
+                if (split.length >= 5) {
                     String email = split[0].trim();
-                    String username = split[1].trim();
-                    String password = split[2].trim();
-                    String fullName = split[3].trim();
-                    String departmentId = split[4].trim();
-                    String positionId = split[5].trim();
+                    String password = split[1].trim();
+                    String fullName = split[2].trim();
+                    String departmentId = split[3].trim();
+                    String positionId = split[4].trim();
 
-                    result.add(new AccountCsv(email, username, password, fullName, departmentId, positionId, lineNumber));
+                    result.add(new AccountCsv(email, password, fullName, departmentId, positionId, lineNumber));
                 }
                 line = bufferedReader.readLine();
                 lineNumber++;
@@ -58,7 +57,6 @@ public class AccountCsvImport implements IImportFile<AccountCsv, AccountContext,
     public void validation(AccountCsv csvRow, AccountContext context, List<ImportError> importErrors, List<Account> entityList) {
         int lineNumber = csvRow.getLineNumber();
         String email = csvRow.getEmail();
-        String username = csvRow.getUsername();
         String password = csvRow.getPassword();
         String fullName = csvRow.getFullName();
         String deptRef = csvRow.getDepartmentId();
@@ -76,31 +74,19 @@ public class AccountCsvImport implements IImportFile<AccountCsv, AccountContext,
             return;
         }
 
-        // 2. Validate Username
-        if (username.isEmpty()) {
-            importErrors.add(new ImportError(lineNumber, username, "Username bị trống"));
-            return;
-        } else if (context.getCsvUsernamesMapLower().containsKey(username.toLowerCase())) {
-            importErrors.add(new ImportError(lineNumber, username, "Username bị trùng lặp trong file CSV"));
-            return;
-        } else if (context.getMapAccountByUsername().containsKey(username.toLowerCase())) {
-            importErrors.add(new ImportError(lineNumber, username, "Username đã tồn tại trong database"));
-            return;
-        }
-
-        // 3. Validate Password
+        // 2. Validate Password
         if (password.isEmpty()) {
             importErrors.add(new ImportError(lineNumber, "password", "Password không được để trống"));
             return;
         }
 
-        // 4. Validate FullName
+        // 3. Validate FullName
         if (fullName.isEmpty()) {
             importErrors.add(new ImportError(lineNumber, "fullName", "Họ tên không được để trống"));
             return;
         }
 
-        // 5. Validate Department
+        // 4. Validate Department
         if (deptRef.isEmpty()) {
             importErrors.add(new ImportError(lineNumber, "department", "Mã/Tên phòng ban không được để trống"));
             return;
@@ -129,7 +115,7 @@ public class AccountCsvImport implements IImportFile<AccountCsv, AccountContext,
             return;
         }
 
-        // 6. Validate Position
+        // 5. Validate Position
         if (posRef.isEmpty()) {
             importErrors.add(new ImportError(lineNumber, "position", "Mã/Tên chức vụ không được để trống"));
             return;
@@ -159,10 +145,9 @@ public class AccountCsvImport implements IImportFile<AccountCsv, AccountContext,
         }
 
         // Nếu tất cả hợp lệ, tạo thực thể Account và đánh dấu đã sử dụng trong Context
-        Account newAcc = new Account(0, email, username, password, fullName, MatchedDept, MatchedPos, LocalDate.now());
+        Account newAcc = new Account(0, email, password, fullName, MatchedDept, MatchedPos, LocalDate.now());
         entityList.add(newAcc);
         context.getCsvEmailsMapLower().put(email.toLowerCase(), true);
-        context.getCsvUsernamesMapLower().put(username.toLowerCase(), true);
     }
 
     @Override

@@ -62,20 +62,16 @@ public class AccountServiceImplement implements IAccountService {
         // Load cache data
         List<Account> existingAccounts = accountRepository.findAll();
         Map<String, Account> mapAccountByEmail = new HashMap<>();
-        Map<String, Account> mapAccountByUsername = new HashMap<>();
         for (Account a : existingAccounts) {
             if (a.getEmail() != null) {
                 mapAccountByEmail.put(a.getEmail().toLowerCase(), a);
-            }
-            if (a.getUsername() != null) {
-                mapAccountByUsername.put(a.getUsername().toLowerCase(), a);
             }
         }
 
         List<Department> departments = departmentRepository.findAll();
         List<Position> positions = positionRepository.findAll();
 
-        AccountContext context = new AccountContext(mapAccountByEmail, mapAccountByUsername, departments, positions);
+        AccountContext context = new AccountContext(mapAccountByEmail, departments, positions);
         AccountCsvImport accountCsvImport = new AccountCsvImport();
         return accountCsvImport.importFile(path, context);
     }

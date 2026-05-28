@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public class Account {
     private int accountId;
     private String email;
-    private String username;
     private String password;
     private String fullName;
     private Department department;
@@ -16,21 +15,19 @@ public class Account {
     public Account() {
     }
 
-    public Account(int accountId, String email, String username, String fullName, Department department,
+    public Account(int accountId, String email, String fullName, Department department,
                    Position position, LocalDate createDate) {
         this.accountId = accountId;
         this.email = email;
-        this.username = username;
         this.fullName = fullName;
         this.department = department;
         this.position = position;
         this.createDate = createDate;
     }
 
-    public Account(int accountId, String email, String username, String password, String fullName, Department department, Position position, LocalDate createDate) {
+    public Account(int accountId, String email, String password, String fullName, Department department, Position position, LocalDate createDate) {
         this.accountId = accountId;
         this.email = email;
-        this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.department = department;
@@ -38,10 +35,9 @@ public class Account {
         this.createDate = createDate;
     }
 
-    public Account(String email, String username, String fullName, Department department,
+    public Account(String email, String fullName, Department department,
                    Position position, LocalDate createDate) {
         this.email = email;
-        this.username = username;
         this.fullName = fullName;
         this.department = department;
         this.position = position;
@@ -63,14 +59,6 @@ public class Account {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getFullName() {
@@ -118,7 +106,6 @@ public class Account {
         return "Account{" +
                 "accountId=" + accountId +
                 ", email='" + email + '\'' +
-                ", username='" + username + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", department=" + department +
                 ", position=" + position +

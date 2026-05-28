@@ -2,16 +2,14 @@ package com.zalo.auto.dto.csv;
 
 public class AccountCsv {
     private String email;
-    private String username;
     private String password;
     private String fullName;
     private String departmentId;
     private String positionId;
     private int lineNumber;
 
-    public AccountCsv(String email, String username, String password, String fullName, String departmentId, String positionId, int lineNumber) {
+    public AccountCsv(String email, String password, String fullName, String departmentId, String positionId, int lineNumber) {
         this.email = email;
-        this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.departmentId = departmentId;
@@ -25,14 +23,6 @@ public class AccountCsv {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getPassword() {

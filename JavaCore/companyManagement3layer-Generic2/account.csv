@@ -1,4 +1,4 @@
-email,username,password,fullName,departmentId,positionId
-nguyen.van.a@gmail.com,nguyenvana,123456,Nguyễn Văn A,1,1
-tran.thi.b@gmail.com,tranthib,abcdef,Trần Thị B,phòng hành chính,Dev
-le.hoang.c@gmail.com,lehoangc,pass123,Lê Hoàng C,2,2
+email,password,fullName,departmentId,positionId
+nguyen.van.a@gmail.com,123456,Nguyễn Văn A,1,1
+tran.thi.b@gmail.com,abcdef,Trần Thị B,phòng hành chính,Dev
+le.hoang.c@gmail.com,pass123,Lê Hoàng C,2,2
