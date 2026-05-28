@@ -33,23 +33,18 @@ public class AccountServiceImplement implements IAccountService {
     }
 
     @Override
-    public boolean create(String email, String username, String fullName, int departmentId, int positionId) {
-        return accountRepository.create(email, username, fullName, departmentId, positionId);
+    public boolean create(String email, String fullName, int departmentId, int positionId) {
+        return accountRepository.create(email, fullName, departmentId, positionId);
     }
 
     @Override
-    public boolean update(int id, String email, String username, String fullName, int departmentId, int positionId) {
-        return accountRepository.update(id, email, username, fullName, departmentId, positionId);
+    public boolean update(int id, String email, String fullName, int departmentId, int positionId) {
+        return accountRepository.update(id, email, fullName, departmentId, positionId);
     }
 
     @Override
     public boolean delete(int id) {
         return accountRepository.delete(id);
-    }
-
-    @Override
-    public boolean checkExistUsername(String username) {
-        return accountRepository.checkExistUsername(username);
     }
 
     @Override

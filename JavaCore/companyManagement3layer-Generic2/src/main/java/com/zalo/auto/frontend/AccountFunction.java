@@ -36,14 +36,28 @@ public class AccountFunction {
             try {
                 int choice = Integer.parseInt(scanner.nextLine());
                 switch (choice) {
-                    case 1: displayAll(); break;
-                    case 2: create(); break;
-                    case 3: update(); break;
-                    case 4: delete(); break;
-                    case 5: searchById(); break;
-                    case 6: importFile(); break;
-                    case 0: return;
-                    default: System.out.println("Lựa chọn không hợp lệ!");
+                    case 1:
+                        displayAll();
+                        break;
+                    case 2:
+                        create();
+                        break;
+                    case 3:
+                        update();
+                        break;
+                    case 4:
+                        delete();
+                        break;
+                    case 5:
+                        searchById();
+                        break;
+                    case 6:
+                        importFile();
+                        break;
+                    case 0:
+                        return;
+                    default:
+                        System.out.println("Lựa chọn không hợp lệ!");
                 }
             } catch (NumberFormatException e) {
                 System.out.println("❌ Lỗi: Vui lòng nhập một số nguyên!");
@@ -53,39 +67,26 @@ public class AccountFunction {
 
     private void displayAll() {
         List<Account> list = accountController.findAll();
-        System.out.println("\n=============================================== DANH SÁCH NHÂN VIÊN ===============================================");
-        System.out.printf("%-5s %-25s %-20s %-15s %-15s %-12s\n", "ID", "Email", "Họ Tên", "Phòng Ban", "Chức Vụ", "Ngày Tạo");
+        System.out.println(
+                "\n=============================================== DANH SÁCH NHÂN VIÊN ===============================================");
+        System.out.printf("%-5s %-25s %-20s %-15s %-15s %-12s\n", "ID", "Email", "Họ Tên", "Phòng Ban", "Chức Vụ",
+                "Ngày Tạo");
         if (list.isEmpty()) {
             System.out.println("                                     (Trống)                                     ");
         } else {
             for (Account a : list) {
                 System.out.printf("%-5d %-25s %-20s %-15s %-15s %-12s\n",
-                    a.getAccountId(), 
-                    a.getEmail(), 
-                    a.getFullName(),
-                    a.getDepartment() != null ? a.getDepartment().getDepartmentName() : "N/A",
-                    a.getPosition() != null ? a.getPosition().getPositionName() : "N/A",
-                    a.getCreateDate());
+                        a.getAccountId(),
+                        a.getEmail(),
+                        a.getFullName(),
+                        a.getDepartment() != null ? a.getDepartment().getDepartmentName() : "N/A",
+                        a.getPosition() != null ? a.getPosition().getPositionName() : "N/A",
+                        a.getCreateDate());
             }
         }
     }
 
     private void create() {
-        String username;
-        while (true) {
-            System.out.print("Nhập Username: ");
-            username = scanner.nextLine();
-            if (username == null || username.trim().isEmpty()) {
-                System.out.println("❌ Username không được để trống!");
-                continue;
-            }
-            if (accountController.checkExistUsername(username)) {
-                System.out.println("❌ Username đã tồn tại!");
-                continue;
-            }
-            break;
-        }
-
         String email;
         while (true) {
             System.out.print("Nhập Email: ");
@@ -138,7 +139,7 @@ public class AccountFunction {
             }
         }
 
-        if (accountController.create(email, username, name, dId, pId)) {
+        if (accountController.create(email, name, dId, pId)) {
             System.out.println("✅ Thêm thành công!");
         } else {
             System.out.println("❌ Thêm thất bại!");
@@ -163,24 +164,6 @@ public class AccountFunction {
             } catch (NumberFormatException e) {
                 System.out.println("❌ Lỗi: ID phải là số nguyên!");
             }
-        }
-
-        String username;
-        while (true) {
-            System.out.print("Nhập Username mới: ");
-            username = scanner.nextLine();
-            if (username == null || username.trim().isEmpty()) {
-                System.out.println("❌ Username không được để trống!");
-                continue;
-            }
-            if (accountController.checkExistUsername(username)) {
-                Account existing = accountController.findById(id);
-                if (existing.getUsername() == null || !existing.getUsername().equals(username)) {
-                    System.out.println("❌ Username đã tồn tại!");
-                    continue;
-                }
-            }
-            break;
         }
 
         String email;
@@ -238,7 +221,7 @@ public class AccountFunction {
             }
         }
 
-        if (accountController.update(id, email, username, name, dId, pId)) {
+        if (accountController.update(id, email, name, dId, pId)) {
             System.out.println("✅ Cập nhật thành công!");
         } else {
             System.out.println("❌ Cập nhật thất bại!");

@@ -62,7 +62,7 @@ public class AccountRepositoryImplement implements IAccountRepository {
     }
 
     @Override
-    public boolean create(String email, String username, String fullName, int departmentId, int positionId) {
+    public boolean create(String email, String fullName, int departmentId, int positionId) {
         String query = "INSERT INTO account (email, full_name, department_id, position_id, create_date) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = Jdbc.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -81,7 +81,7 @@ public class AccountRepositoryImplement implements IAccountRepository {
     }
 
     @Override
-    public boolean update(int id, String email, String username, String fullName, int departmentId, int positionId) {
+    public boolean update(int id, String email, String fullName, int departmentId, int positionId) {
         String query = "UPDATE account SET email = ?, full_name = ?, department_id = ?, position_id = ? WHERE account_id = ?";
         try (Connection conn = Jdbc.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -131,12 +131,6 @@ public class AccountRepositoryImplement implements IAccountRepository {
                 dept,
                 pos,
                 createDate);
-    }
-
-    @Override
-    public boolean checkExistUsername(String username) {
-        // Cột username không tồn tại trong database, mặc định trả về false
-        return false;
     }
 
     @Override

@@ -16,20 +16,16 @@ public class AccountController {
         return accountService.findById(id);
     }
 
-    public boolean create(String email, String username, String fullName, int departmentId, int positionId) {
-        return accountService.create(email, username, fullName, departmentId, positionId);
+    public boolean create(String email, String fullName, int departmentId, int positionId) {
+        return accountService.create(email, fullName, departmentId, positionId);
     }
 
-    public boolean update(int id, String email, String username, String fullName, int departmentId, int positionId) {
-        return accountService.update(id, email, username, fullName, departmentId, positionId);
+    public boolean update(int id, String email, String fullName, int departmentId, int positionId) {
+        return accountService.update(id, email, fullName, departmentId, positionId);
     }
 
     public boolean delete(int id) {
         return accountService.delete(id);
-    }
-
-    public boolean checkExistUsername(String username) {
-        return accountService.checkExistUsername(username);
     }
 
     public boolean checkExistEmail(String email) {
