@@ -1,0 +1,5 @@
+====== DANH SÁCH LỖI IMPORT ======
+Line 2: 'kế toán' -> Lỗi: Tên phòng ban đã tồn tại trong database
+Line 3: '' -> Lỗi: Tên phòng ban bị trống
+Line 4: '' -> Lỗi: Tên phòng ban bị trống
+Line 5: 'hỗ trợ tài chính' -> Lỗi: Tên phòng ban đã tồn tại trong database
