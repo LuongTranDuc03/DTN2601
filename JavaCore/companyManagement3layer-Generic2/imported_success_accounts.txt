@@ -1,0 +1,4 @@
+====== DANH SÁCH NHÂN VIÊN IMPORT THÀNH CÔNG ======
+- Nguyễn Văn A (nguyen.van.a@gmail.com) - PB: Phòng Kỹ thuật, CV: Dev
+- Trần Thị B (tran.thi.b@gmail.com) - PB: phòng hành chính, CV: Dev
+- Lê Hoàng C (le.hoang.c@gmail.com) - PB: Phòng Nhân sự, CV: Test

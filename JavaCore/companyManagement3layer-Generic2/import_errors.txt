@@ -1,0 +1,4 @@
+====== DANH SÁCH LỖI IMPORT ACCOUNT ======
+Line 2: 'nguyen.van.a@gmail.com' -> Lỗi: Email đã tồn tại trong database
+Line 3: 'tran.thi.b@gmail.com' -> Lỗi: Email đã tồn tại trong database
+Line 4: 'le.hoang.c@gmail.com' -> Lỗi: Email đã tồn tại trong database
