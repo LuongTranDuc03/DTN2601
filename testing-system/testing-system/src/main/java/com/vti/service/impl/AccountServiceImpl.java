@@ -59,8 +59,8 @@ public class AccountServiceImpl implements IAccountService {
 
         accountUpdate.setEmail(account.getEmail());
         accountUpdate.setFullName(account.getFullName());
-        accountUpdate.setDepartmentId(account.getDepartmentId());
-        accountUpdate.setPositionId(account.getPositionId());
+        accountUpdate.setDepartment(account.getDepartment());
+        accountUpdate.setPosition(account.getPosition());
         accountUpdate.setCreateDate(account.getCreateDate());
         accountUpdate.setPassword(account.getPassword());
         return accountRepository.save(accountUpdate);

@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDate;
 
+import java.util.List;
+
 @Entity
 @Table(name = "account")
 @Getter
@@ -26,15 +28,23 @@ public class Account {
     @Column(name = "full_name", nullable = false, length = 100)
     private String fullName;
 
-    @Column(name = "department_id")
-    private Integer departmentId;
+    @ManyToOne
+    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
+    private Department department;
 
-    @Column(name = "position_id")
-    private Integer positionId;
+    @ManyToOne
+    @JoinColumn(name = "position_id", referencedColumnName = "position_id")
+    private Position position;
 
     @Column(name = "create_date")
     private LocalDate createDate;
 
     @Column(name = "password", nullable = false, length = 100)
     private String password = "123456";
+
+    @OneToMany(mappedBy = "creator")
+    private List<Group> createdGroups;
+
+    @OneToMany(mappedBy = "account")
+    private List<GroupAccount> groupAccounts;
 }
