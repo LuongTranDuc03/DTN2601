@@ -15,7 +15,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "group_account")
+@Table(name = "groupaccount")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,14 +27,14 @@ public class GroupAccount {
 
     @ManyToOne
     @MapsId("groupId")
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "groupid")
     private Group group;
 
     @ManyToOne
     @MapsId("accountId")
-    @JoinColumn(name = "account_id")
+    @JoinColumn(name = "accountid")
     private Account account;
 
-    @Column(name = "join_date")
+    @Column(name = "joindate")
     private LocalDate joinDate;
 }

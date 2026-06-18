@@ -20,9 +20,9 @@ public class GroupAccountId implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Column(name = "group_id")
+    @Column(name = "groupid")
     private Integer groupId;
 
-    @Column(name = "account_id")
+    @Column(name = "accountid")
     private Integer accountId;
 }

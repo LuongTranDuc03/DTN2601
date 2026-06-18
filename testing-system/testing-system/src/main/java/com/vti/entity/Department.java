@@ -17,11 +17,11 @@ import java.util.List;
 public class Department {
 
     @Id
-    @Column(name = "department_id") // Anh xa toi truong id cua bang
+    @Column(name = "departmentid") // Anh xa toi truong id cua bang
     @GeneratedValue(strategy = GenerationType.IDENTITY) // tu sinh
     private Integer id;
 
-    @Column(name = "department_name", nullable = false, unique = true, length = 100)
+    @Column(name = "departmentname", nullable = false, unique = true, length = 100)
     private String name;
 
     @OneToMany(mappedBy = "department")

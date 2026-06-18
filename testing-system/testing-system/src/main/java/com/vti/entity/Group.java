@@ -26,18 +26,18 @@ import java.util.List;
 public class Group {
 
     @Id
-    @Column(name = "group_id")
+    @Column(name = "groupid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "group_name", nullable = false, unique = true, length = 100)
+    @Column(name = "groupname", nullable = false, unique = true, length = 100)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "creator_id", referencedColumnName = "account_id")
+    @JoinColumn(name = "creatorid", referencedColumnName = "accountid")
     private Account creator;
 
-    @Column(name = "create_date")
+    @Column(name = "createdate")
     private LocalDate createDate;
 
     @OneToMany(mappedBy = "group")

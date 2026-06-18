@@ -1,7 +1,10 @@
 package com.vti.service.impl;
 
 import com.vti.entity.Department;
+import com.vti.form.DepartmentCreateForm;
+import com.vti.form.DepartmentUpdateForm;
 import com.vti.repository.IDepartmentRepository;
+import com.vti.result.DepartmentDTO;
 import com.vti.service.IDepartmentService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,29 +47,24 @@ public class DepartmentServiceImpl implements IDepartmentService {
     }
 
     @Override
-    public Department create(Department department) {
-        Department department1 = DepartmentRepository.save(department);
-        return department1;
+    public DepartmentDTO create(DepartmentCreateForm form) {
+        Department department = new Department();
+        department.setName(form.getName());
+        Department saved = DepartmentRepository.save(department);
+        return new DepartmentDTO(saved);
     }
 
     @Override
-    public Department update(Department department) {
-        if (department.getId() == null || !DepartmentRepository.existsById(department.getId())) {
-            throw new RuntimeException("ID khong ton tai");
-        }
-        return DepartmentRepository.save(department);
-    }
-
-    @Override
-    public Department update(Integer id, Department department) {
+    public DepartmentDTO update(Integer id, DepartmentUpdateForm form) {
         Department departmentUpdate = DepartmentRepository.findById(id).orElse(null);
 
-        if(Objects.isNull(departmentUpdate)){
+        if (Objects.isNull(departmentUpdate)) {
             throw new RuntimeException("ID khong ton tai");
         }
 
-        departmentUpdate.setName(department.getName());
-        return DepartmentRepository.save(departmentUpdate);
+        departmentUpdate.setName(form.getName());
+        Department saved = DepartmentRepository.save(departmentUpdate);
+        return new DepartmentDTO(saved);
     }
 
     @Override

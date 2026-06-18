@@ -2,7 +2,10 @@ package com.vti.service.impl;
 
 import com.vti.entity.Position;
 import com.vti.enums.PositionName;
+import com.vti.form.PositionCreateForm;
+import com.vti.form.PositionUpdateForm;
 import com.vti.repository.IPositionRepository;
+import com.vti.result.PositionDTO;
 import com.vti.service.IPositionService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,28 +41,24 @@ public class PositionServiceImpl implements IPositionService {
     }
 
     @Override
-    public Position create(Position position) {
-        return positionRepository.save(position);
+    public PositionDTO create(PositionCreateForm form) {
+        Position position = new Position();
+        position.setPositionName(PositionName.fromValue(form.getPositionName()));
+        Position saved = positionRepository.save(position);
+        return new PositionDTO(saved);
     }
 
     @Override
-    public Position update(Position position) {
-        if (position.getId() == null || !positionRepository.existsById(position.getId())) {
-            throw new RuntimeException("ID khong ton tai");
-        }
-        return positionRepository.save(position);
-    }
-
-    @Override
-    public Position update(Integer id, Position position) {
+    public PositionDTO update(Integer id, PositionUpdateForm form) {
         Position positionUpdate = positionRepository.findById(id).orElse(null);
 
         if (Objects.isNull(positionUpdate)) {
             throw new RuntimeException("ID khong ton tai");
         }
 
-        positionUpdate.setPositionName(position.getPositionName());
-        return positionRepository.save(positionUpdate);
+        positionUpdate.setPositionName(PositionName.fromValue(form.getPositionName()));
+        Position saved = positionRepository.save(positionUpdate);
+        return new PositionDTO(saved);
     }
 
 

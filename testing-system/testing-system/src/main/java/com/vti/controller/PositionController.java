@@ -1,7 +1,11 @@
 package com.vti.controller;
 
 import com.vti.entity.Position;
+import com.vti.form.PositionCreateForm;
+import com.vti.form.PositionUpdateForm;
+import com.vti.result.PositionDTO;
 import com.vti.service.IPositionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +39,14 @@ public class PositionController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Position position) {
-        Position createdPosition = positionService.create(position);
+    public ResponseEntity<PositionDTO> create(@Valid @RequestBody PositionCreateForm form) {
+        PositionDTO createdPosition = positionService.create(form);
         return new ResponseEntity<>(createdPosition, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") Integer id, @RequestBody Position position) {
-        Position updatedPosition = positionService.update(id, position);
+    public ResponseEntity<PositionDTO> update(@PathVariable(name = "id") Integer id, @Valid @RequestBody PositionUpdateForm form) {
+        PositionDTO updatedPosition = positionService.update(id, form);
         return new ResponseEntity<>(updatedPosition, HttpStatus.OK);
     }
 

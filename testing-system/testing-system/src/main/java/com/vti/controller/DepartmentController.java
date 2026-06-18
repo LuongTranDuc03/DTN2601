@@ -1,7 +1,11 @@
 package com.vti.controller;
 
 import com.vti.entity.Department;
+import com.vti.form.DepartmentCreateForm;
+import com.vti.form.DepartmentUpdateForm;
+import com.vti.result.DepartmentDTO;
 import com.vti.service.IDepartmentService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +39,14 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Department department) {
-        Department createdDepartment = DepartmentService.create(department);
+    public ResponseEntity<DepartmentDTO> create(@Valid @RequestBody DepartmentCreateForm form) {
+        DepartmentDTO createdDepartment = DepartmentService.create(form);
         return new ResponseEntity<>(createdDepartment, HttpStatus.CREATED); // 201
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") Integer id, @RequestBody Department department) {
-        Department updatedDepartment = DepartmentService.update(id, department);
+    public ResponseEntity<DepartmentDTO> update(@PathVariable(name = "id") Integer id, @Valid @RequestBody DepartmentUpdateForm form) {
+        DepartmentDTO updatedDepartment = DepartmentService.update(id, form);
         return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
     }
 

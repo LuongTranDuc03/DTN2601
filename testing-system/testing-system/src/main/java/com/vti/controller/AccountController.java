@@ -1,10 +1,15 @@
 package com.vti.controller;
 
 import com.vti.entity.Account;
+import com.vti.form.AccountCreateForm;
+import com.vti.form.AccountUpdateForm;
+import com.vti.result.AccountDTO;
 import com.vti.service.IAccountService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +20,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/accounts")
+@Validated
 public class AccountController {
 
     // Tiêm (Inject) dependency IAccountService để sử dụng các phương thức xử lý nghiệp vụ
@@ -28,8 +34,8 @@ public class AccountController {
      * @return ResponseEntity chứa danh sách Account và mã trạng thái HTTP 200 OK
      */
     @GetMapping
-    public ResponseEntity<List<Account>> findAll() {
-        List<Account> accounts = accountService.findAll();
+    public ResponseEntity<List<AccountDTO>> findAll() {
+        List<AccountDTO> accounts = accountService.findAll();
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
@@ -38,12 +44,12 @@ public class AccountController {
      * Endpoint: GET /api/accounts/{id}
      *
      * @param id ID của tài khoản cần tìm (truyền qua Path Variable)
-     * @return ResponseEntity chứa thông tin Account tìm được và mã trạng thái HTTP 200 OK
+     * @return ResponseEntity chứa thông tin AccountDTO tìm được và mã trạng thái HTTP 200 OK
      */
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Account> findById(@PathVariable(name = "id") Integer id) {
-        Account account = accountService.findById(id);
-        return new ResponseEntity<>(account, HttpStatus.OK);
+    public ResponseEntity<AccountDTO> findById(@PathVariable(name = "id") Integer id) {
+        AccountDTO dto = accountService.findById(id);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     /**
@@ -51,25 +57,26 @@ public class AccountController {
      * Endpoint: GET /api/accounts?email=...
      *
      * @param email Địa chỉ email của tài khoản cần tìm (truyền qua Request Parameter)
-     * @return ResponseEntity chứa thông tin Account tìm được và mã trạng thái HTTP 200 OK
+     * @return ResponseEntity chứa thông tin AccountDTO tìm được và mã trạng thái HTTP 200 OK
      */
     @GetMapping(params = "email")
-    public ResponseEntity<Account> findByEmail(@RequestParam(name = "email") String email) {
-        Account account = accountService.findByEmail(email);
-        return new ResponseEntity<>(account, HttpStatus.OK);
+    public ResponseEntity<AccountDTO> findByEmail(@RequestParam(name = "email") String email) {
+        AccountDTO dto = accountService.findByEmail(email);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    /**
+    /*
      * Tạo mới một tài khoản.
      * Endpoint: POST /api/accounts
      *
-     * @param account Đối tượng Account truyền lên dạng JSON từ Request Body
-     * @return ResponseEntity chứa Account vừa tạo và mã trạng thái HTTP 201 CREATED
+     * @param  Đối tượng Account truyền lên dạng JSON từ Request Body
+     * @return ResponseEntity chứa AccountDTO vừa tạo và mã trạng thái HTTP 201 CREATED
      */
     @PostMapping
-    public ResponseEntity<?> create(@RequestBody Account account) {
-        Account createdAccount = accountService.create(account);
-        return new ResponseEntity<>(createdAccount, HttpStatus.CREATED);
+    public ResponseEntity<AccountDTO> create(@Valid @RequestBody AccountCreateForm accountCreateForm) {
+        Account account = accountService.create(accountCreateForm);
+        AccountDTO dto = new AccountDTO(account);
+        return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
     /**
@@ -78,13 +85,13 @@ public class AccountController {
      *
      * @param id ID của tài khoản cần cập nhật (truyền qua Path Variable)
      * @param account Đối tượng Account chứa các thông tin cập nhật từ Request Body
-     * @return ResponseEntity chứa Account sau khi cập nhật và mã trạng thái HTTP 200 OK
+     * @return ResponseEntity chứa AccountDTO sau khi cập nhật và mã trạng thái HTTP 200 OK
      */
-    @PutMapping(value = "/{id}")
-    public ResponseEntity<?> update(@PathVariable(name = "id") Integer id, @RequestBody Account account) {
-        Account updatedAccount = accountService.update(id, account);
-        return new ResponseEntity<>(updatedAccount, HttpStatus.OK);
-    }
+     @PutMapping(value = "/{id}")
+     public ResponseEntity<AccountDTO> update(@PathVariable(name = "id") Integer id, @Valid @RequestBody AccountUpdateForm form) {
+         AccountDTO dto = accountService.update(id, form);
+         return new ResponseEntity<>(dto, HttpStatus.OK);
+     }
 
     /**
      * Xóa tài khoản theo ID.

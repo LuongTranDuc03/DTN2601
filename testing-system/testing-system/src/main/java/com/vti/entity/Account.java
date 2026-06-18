@@ -18,25 +18,28 @@ import java.util.List;
 public class Account {
 
     @Id
-    @Column(name = "account_id")
+    @Column(name = "accountid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
-    @Column(name = "full_name", nullable = false, length = 100)
+    @Column(name = "username", nullable = false, unique = true, length = 50)
+    private String username;
+
+    @Column(name = "fullname", nullable = false, length = 100)
     private String fullName;
 
     @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "department_id")
+    @JoinColumn(name = "departmentid", referencedColumnName = "departmentid")
     private Department department;
 
     @ManyToOne
-    @JoinColumn(name = "position_id", referencedColumnName = "position_id")
+    @JoinColumn(name = "positionid", referencedColumnName = "positionid")
     private Position position;
 
-    @Column(name = "create_date")
+    @Column(name = "createdate")
     private LocalDate createDate;
 
     @Column(name = "password", nullable = false, length = 100)
