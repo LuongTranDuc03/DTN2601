@@ -7,6 +7,8 @@ import com.vti.result.PositionDTO;
 import com.vti.service.IPositionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,8 @@ public class PositionController {
     private IPositionService positionService;
 
     @GetMapping
-    public ResponseEntity<List<Position>> findAll() {
-        List<Position> positions = positionService.findAll();
+    public ResponseEntity<Page<PositionDTO>> findAll(Pageable pageable) {
+        Page<PositionDTO> positions = positionService.findAll(pageable);
         return new ResponseEntity<>(positions, HttpStatus.OK);
     }
 

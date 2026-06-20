@@ -8,6 +8,8 @@ import com.vti.result.DepartmentDTO;
 import com.vti.service.IDepartmentService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -24,8 +26,9 @@ public class DepartmentServiceImpl implements IDepartmentService {
     private IDepartmentRepository DepartmentRepository;
 
     @Override
-    public List<Department> findAll() {
-        return  DepartmentRepository.findAll();
+    public Page<DepartmentDTO> findAll(Pageable pageable) {
+        Page<Department> departments = DepartmentRepository.findAll(pageable);
+        return departments.map(dept -> new DepartmentDTO(dept));
     }
 
     @Override

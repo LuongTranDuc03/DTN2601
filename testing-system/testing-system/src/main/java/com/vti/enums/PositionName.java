@@ -1,8 +1,5 @@
 package com.vti.enums;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-
 public enum PositionName {
     Dev("D"),
     Test("T"),

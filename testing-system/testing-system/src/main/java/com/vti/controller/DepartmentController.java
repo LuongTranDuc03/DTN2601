@@ -7,6 +7,8 @@ import com.vti.result.DepartmentDTO;
 import com.vti.service.IDepartmentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +23,8 @@ public class DepartmentController {
     private IDepartmentService DepartmentService;
 
     @GetMapping
-    public ResponseEntity<List<Department>> findAll() {
-        List<Department> departments = DepartmentService.findAll();
+    public ResponseEntity<Page<DepartmentDTO>> findAll(Pageable pageable) {
+        Page<DepartmentDTO> departments = DepartmentService.findAll(pageable);
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 

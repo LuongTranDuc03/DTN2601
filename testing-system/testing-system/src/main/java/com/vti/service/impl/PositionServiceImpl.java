@@ -9,6 +9,8 @@ import com.vti.result.PositionDTO;
 import com.vti.service.IPositionService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,8 +27,9 @@ public class PositionServiceImpl implements IPositionService {
     private IPositionRepository positionRepository;
 
     @Override
-    public List<Position> findAll() {
-        return positionRepository.findAll();
+    public Page<PositionDTO> findAll(Pageable pageable) {
+        Page<Position> positions = positionRepository.findAll(pageable);
+        return positions.map(pos -> new PositionDTO(pos));
     }
 
     @Override

@@ -4,15 +4,21 @@ import com.vti.entity.Account;
 import com.vti.entity.Department;
 import com.vti.entity.Position;
 import com.vti.form.AccountCreateForm;
+import com.vti.form.AccountFilterForm;
 import com.vti.form.AccountUpdateForm;
 import com.vti.repository.IAccountRepository;
 import com.vti.repository.IDepartmentRepository;
 import com.vti.repository.IPositionRepository;
 import com.vti.result.AccountDTO;
 import com.vti.service.IAccountService;
+import com.vti.specification.AccountCustomSpecification;
 import jakarta.transaction.Transactional;
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -36,16 +42,39 @@ public class AccountServiceImpl implements IAccountService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<AccountDTO> findAll() {
-        List<Account> accounts = accountRepository.findAll();
-        List<AccountDTO> dtos = new ArrayList<>();
-        for (Account acc : accounts) {
-            //AccountDTO.class: kieu du lieu mong muon duoc chuyen thanh
-            AccountDTO dto = modelMapper.map(acc, AccountDTO.class);
-            dtos.add(dto);
+    public Page<AccountDTO> findAll(AccountFilterForm accform, Pageable pageable) {
+        Specification<Account> where = null;
+
+        if (accform != null) {
+            if (StringUtils.isNotBlank(accform.getUsername())) {
+                Specification<Account> spec = new AccountCustomSpecification("username", accform.getUsername());
+                where = (where == null) ? spec : where.and(spec);
+            }
+            if (StringUtils.isNotBlank(accform.getFullName())) {
+                Specification<Account> spec = new AccountCustomSpecification("fullName", accform.getFullName());
+                where = (where == null) ? spec : where.and(spec);
+            }
+            if (StringUtils.isNotBlank(accform.getEmail())) {
+                Specification<Account> spec = new AccountCustomSpecification("email", accform.getEmail());
+                where = (where == null) ? spec : where.and(spec);
+            }
+            if (StringUtils.isNotBlank(accform.getDepartment())) {
+                Specification<Account> spec = new AccountCustomSpecification("department", accform.getDepartment());
+                where = (where == null) ? spec : where.and(spec);
+            }
+            if (StringUtils.isNotBlank(accform.getPosition())) {
+                Specification<Account> spec = new AccountCustomSpecification("position", accform.getPosition());
+                where = (where == null) ? spec : where.and(spec);
+            }
+            if (accform.getCreateDate() != null) {
+                Specification<Account> spec = new AccountCustomSpecification("createDate", accform.getCreateDate());
+                where = (where == null) ? spec : where.and(spec);
+            }
         }
 
-        return dtos;
+        Page<Account> accounts = accountRepository.findAll(where, pageable);
+
+        return accounts.map(acc -> new AccountDTO(acc));
     }
 
     @Override

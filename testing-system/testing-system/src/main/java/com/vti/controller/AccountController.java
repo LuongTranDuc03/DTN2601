@@ -2,12 +2,15 @@ package com.vti.controller;
 
 import com.vti.entity.Account;
 import com.vti.form.AccountCreateForm;
+import com.vti.form.AccountFilterForm;
 import com.vti.form.AccountUpdateForm;
 import com.vti.result.AccountDTO;
 import com.vti.service.IAccountService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -28,14 +31,14 @@ public class AccountController {
     private IAccountService accountService;
 
     /**
-     * Lấy danh sách tất cả các tài khoản.
+     * Lấy danh sách tất cả các tài khoản có phân trang và lọc.
      * Endpoint: GET /api/accounts
      *
-     * @return ResponseEntity chứa danh sách Account và mã trạng thái HTTP 200 OK
+     * @return ResponseEntity chứa Page<AccountDTO> và mã trạng thái HTTP 200 OK
      */
     @GetMapping
-    public ResponseEntity<List<AccountDTO>> findAll() {
-        List<AccountDTO> accounts = accountService.findAll();
+    public ResponseEntity<Page<AccountDTO>> findAll(AccountFilterForm form, Pageable pageable) {
+        Page<AccountDTO> accounts = accountService.findAll(form, pageable);
         return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
@@ -52,7 +55,7 @@ public class AccountController {
         return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    /**
+    /*
      * Tìm kiếm tài khoản theo địa chỉ email.
      * Endpoint: GET /api/accounts?email=...
      *
@@ -79,7 +82,7 @@ public class AccountController {
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    /**
+    /*
      * Cập nhật thông tin tài khoản theo ID.
      * Endpoint: PUT /api/accounts/{id}
      *
@@ -93,7 +96,7 @@ public class AccountController {
          return new ResponseEntity<>(dto, HttpStatus.OK);
      }
 
-    /**
+    /*
      * Xóa tài khoản theo ID.
      * Endpoint: DELETE /api/accounts/{id}
      *
